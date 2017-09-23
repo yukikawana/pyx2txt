@@ -1,0 +1,3 @@
+[submodule "colortrans"]
+	path = colortrans
+	url = https://github.com/yukikawana/colortrans.git
