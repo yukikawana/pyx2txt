@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 from PIL import Image, ImageDraw, ImageChops
 import numpy as np
 from numpy import linalg
@@ -9,51 +10,51 @@ from extra import colortrans
 respb = 16
 imgsnp = np.load('imgsnp.npy')
 unicodes = [
-'\u2588',
-'\u2581',
-'\u2582',
-'\u2583',
-'\u2584',
-'\u2585',
-'\u2586',
-'\u2587',
+u'\u2588',
+u'\u2581',
+u'\u2582',
+u'\u2583',
+u'\u2584',
+u'\u2585',
+u'\u2586',
+u'\u2587',
 
-'\u2588',
-'\u2587',
-'\u2586',
-'\u2585',
-'\u2584',
-'\u2583',
-'\u2582',
-'\u2581',
+u'\u2588',
+u'\u2587',
+u'\u2586',
+u'\u2585',
+u'\u2584',
+u'\u2583',
+u'\u2582',
+u'\u2581',
 
-'\u259f',
-'\u2596',
-'\u2599',
-'\u2597',
+u'\u259f',
+u'\u2596',
+u'\u2599',
+u'\u2597',
 
-'\u259a',
-'\u259e',
-'\u2596',
-'\u2599',
-'\u2597',
-'\u259f',
+u'\u259a',
+u'\u259e',
+u'\u2596',
+u'\u2599',
+u'\u2597',
+u'\u259f',
 
-'\u258f',
-'\u258e',
-'\u258d',
-'\u258c',
-'\u258b',
-'\u258a',
-'\u2589',
+u'\u258f',
+u'\u258e',
+u'\u258d',
+u'\u258c',
+u'\u258b',
+u'\u258a',
+u'\u2589',
 
-'\u2589',
-'\u258a',
-'\u258b',
-'\u258c',
-'\u258d',
-'\u258e',
-'\u258f'
+u'\u2589',
+u'\u258a',
+u'\u258b',
+u'\u258c',
+u'\u258d',
+u'\u258e',
+u'\u258f'
 
 ]
 
@@ -136,7 +137,7 @@ def draw(im, check=False, blockwidth=20, multi=1):
                 color1 = fgshort
                 color2 = bgshort
                 block = unicodes[ind]
-            line += '\033[38;5;{0};48;5;{1}m'.format(color1,color2)+block.encode('utf-8')+'\033[0;00m'
+            line += '\033[38;5;{0};48;5;{1}m'.format(color1,color2)+block.encode('utf8')+'\033[0;00m'
             #sys.stdout.write('\033[38;5;{0};48;5;{1}m'.format(color1,color2)+block+'\033[0;00m')
             if check:
                 sys.stdout.write(' ')
@@ -250,7 +251,7 @@ def multidraw(part, blockwidth):
         color1 = fgshort
         color2 = bgshort
         block = unicodes[ind]
-    char = '\033[38;5;{0};48;5;{1}m'.format(color1,color2)+block.encode('utf-8')+'\033[0;00m'
+    char = '\033[38;5;{0};48;5;{1}m'.format(color1,color2)+block.encode('utf8')+'\033[0;00m'
 
     return char
  
