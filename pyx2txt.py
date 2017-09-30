@@ -3,12 +3,14 @@
 from PIL import Image, ImageDraw, ImageChops
 import numpy as np
 from numpy import linalg
+import argparse
 import sys
 import pdb
 import os
 from extra import colortrans
 respb = 16
-imgsnp = np.load('imgsnp.npy')
+currentdir = os.path.dirname(os.path.abspath(__file__))
+imgsnp = np.load(os.path.join(currentdir,'imgsnp.npy'))
 unicodes = [
 u'\u2588',
 u'\u2581',
@@ -60,8 +62,12 @@ u'\u258f'
 
 
 
-def main():
-    imagefile = sys.argv[1]
+def main(args):
+    
+    imagefile = args.image
+    blockwidth=args.blocks
+    cores=args.cores
+
     if imagefile == 'check':
         check = True
         print len(unicodes)
@@ -69,7 +75,7 @@ def main():
         draw(im, check=True)
     else:
         im = Image.open(imagefile).quantize(256,  kmeans=False)
-        draw(im, check=False)
+        draw(im, check=False,blockwidth=blockwidth, multi=cores)
 
 def draw(im, check=False, blockwidth=20, multi=1):
     width, height = im.size
@@ -79,6 +85,7 @@ def draw(im, check=False, blockwidth=20, multi=1):
     imr = im.resize((blockwidth * respb, blockheight * respb), Image.ANTIALIAS)
     checkcount = 0
     line = ''
+    numofblocks = blockheight*blockwidth*2
     if multi > 1:
         from joblib import Parallel, delayed
         multiarg = []
@@ -88,14 +95,18 @@ def draw(im, check=False, blockwidth=20, multi=1):
                 multiarg.append((part.copy(), blockwidth))
         output = Parallel(n_jobs=multi)([delayed(wrapper)(i) for i in multiarg])
         line = ''
-        for hhww in xrange(blockheight*blockwidth*2):
+        for hhww in xrange(1,blockheight*blockwidth*2):
             line+=output[hhww]
+            if numofblocks-1 == hhww:
+                line +=output[0]+'\n'
             if hhww%(blockwidth*2) == 0:
                 line += '\n'
         sys.stdout.write(line)
         sys.stdout.write('\n')
     else:
-        for hhww in xrange(blockheight*blockwidth*2):
+        for hhww in xrange(1,blockheight*blockwidth*2+1):
+            if hhww == numofblocks:
+                hhww = 0
             hh = hhww/(blockwidth*2)
             ww = hhww - hh*blockwidth*2
             part = imr.crop((ww*respb/2,hh*respb,(ww+1)*respb/2,(hh+1)*respb))
@@ -266,7 +277,14 @@ def getPaletteInRgb(img):
     pal = img.getpalette()
     color = pal[0:6]
     return color
-
+def parse_args():
+    '''parse args'''
+    parser = argparse.ArgumentParser()
+    parser.add_argument('image', help='input image file to draw')
+    parser.add_argument('-c', '--cores', type=int, default=1, help='# of cores to use')
+    parser.add_argument('-b', '--blocks', type=int, default=20, help='# of characters for width of an image')
+    return parser.parse_args()
+ 
 
 if __name__ == '__main__':
-    main()
+    main(parse_args())
