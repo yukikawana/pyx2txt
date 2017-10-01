@@ -9,8 +9,13 @@ import pdb
 import os
 from extra import colortrans
 respb = 16
-currentdir = os.path.dirname(os.path.abspath(__file__))
-imgsnp = np.load(os.path.join(currentdir,'imgsnp.npy'))
+
+if hasattr(sys,'_MEIPASS'):
+    imgsnp = np.load(os.path.join(sys._MEIPASS,'imgsnp.npy'))
+else:
+    currentdir = os.path.dirname(os.path.abspath(__file__))
+    imgsnp = np.load(os.path.join(currentdir,'imgsnp.npy'))
+
 unicodes = [
 u'\u2588',
 u'\u2581',
