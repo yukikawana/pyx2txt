@@ -8,7 +8,7 @@ if [ $python3path ]; then
 		pyinpath=$(pip3 list | grep -F PyInstaller | awk '{print $1}')
 		if [ $pyinpath ]; then
 			echo "PyIntaller installed"
-			2to3 -w extra
+			2to3 -w .
 			pyinstaller pyx2txt.spec
 			cp dist/p2t /usr/local/bin
 		else

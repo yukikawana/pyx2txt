@@ -19,6 +19,6 @@ sudo sh install.sh
 p2t image/test.png
 ```
 For further usage see
-
+```bash
 p2t -h
 ```
