@@ -286,7 +286,7 @@ def parse_args():
     '''parse args'''
     parser = argparse.ArgumentParser()
     parser.add_argument('image', help='input image file to draw')
-    parser.add_argument('-c', '--cores', type=int, default=1, help='# of cores to use')
+    parser.add_argument('-c', '--cores', type=int, default=1, help='# of cpu cores to use')
     parser.add_argument('-b', '--blocks', type=int, default=20, help='# of characters for width of an image')
     return parser.parse_args()
  
