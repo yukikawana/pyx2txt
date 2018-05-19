@@ -75,7 +75,7 @@ def main(args):
 
     if imagefile == 'check':
         check = True
-        print len(unicodes)
+        print(len(unicodes))
         im = Image.open('images/test.jpg').quantize(256)
         draw(im, check=True)
     else:
