@@ -3,9 +3,9 @@ pyx2txt is a stand-alone python-based CUI image viewer.
 It converts an image to unicode characters and display it on a terminal.
 
 ## Requirements
-python3.x
-pip3
-PyInstaller
+- python 3.x
+- pip3
+- PyInstaller
 
 ## Installation
 ```bash
@@ -19,5 +19,6 @@ sudo sh install.sh
 p2t image/test.png
 ```
 For further usage see
-p2t -help
+
+p2t -h
 ```
