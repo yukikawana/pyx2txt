@@ -8,6 +8,7 @@ if [ $python3path ]; then
 		pyinpath=$(pip list | grep -F PyInstaller | awk '{print $1}')
 		numpypath=$(pip list | grep -F numpy | awk '{print $1}')
 		pillowpath=$(pip list | grep -F Pillow | awk '{print $1}')
+		joblibpath=$(pip list | grep -F joblib | awk '{print $1}')
 		if [ ! $numpypath ]; then
 			echo "numpy needs to be installed"
 			return 0
@@ -20,6 +21,15 @@ if [ $python3path ]; then
 		else
 			echo "pillow found"
 		fi
+
+		if [ ! $joblibpath ]; then
+			echo "joblib needs to be installed"
+			return 0
+		else
+			echo "joblib found"
+		fi
+
+
 		if [ $pyinpath ]; then
 			echo "PyIntaller installed"
 			pyinstaller pyx2txt.spec
