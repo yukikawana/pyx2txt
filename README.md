@@ -4,7 +4,7 @@ pyx2txt is a stand-alone python-based CUI image viewer.
 
 pyx2txt converts an image to unicode characters and display it on a terminal.
 
-Unicode characters for image rendering are carefully chosen for iOS terminal, especially for [WebSSH](https://itunes.apple.com/jp/app/webssh-pro/).
+Unicode characters for image rendering are carefully chosen for iOS terminal, especially for [WebSSH](https://itunes.apple.com/jp/app/webssh-pro/id497714887?mt=8) (since some unicode characters often used in other character-based image viewers are not working).
 
 ![Alt s](samples/car.png)
 
